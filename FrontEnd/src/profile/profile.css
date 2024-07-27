@@ -1,0 +1,381 @@
+/* Global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: white;
+  background-color: black;
+}
+
+.profile-container {
+  max-width: 70%;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: rgba(233, 75, 75, 0.103);
+  border: 1px solid #e70707;
+  border-radius: 10px;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.profile-image {
+  margin-right: 20px;
+}
+
+.profile-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: none;
+}
+
+.profile-info {
+  flex: 1;
+}
+
+.profile-info h1 {
+  margin-top: 0;
+  font-size: 3rem;
+  font-weight: bold;
+  color: white;
+  text-align: left;
+
+}
+
+.profile-info p {
+  margin-bottom: 10px;
+  font-size: 1.25rem;
+  color: #ccc;
+}
+
+.edit-profile-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-right: 5%;
+}
+
+.edit-profile-button:hover {
+  background-color: #3e8e41;
+}
+
+.profile-details {
+  margin-top: 20px;
+}
+
+.info-button-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.info-button {
+  flex: 1;
+  padding: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgba(255, 115, 0, 0.231);
+  border: 1px solid #ff0000;
+  cursor: pointer;
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+}
+
+.info-button:hover {
+  background-color: #c20c0cc8;
+}
+
+.extended-profile {
+  margin-top: 10px;
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.order-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.order-history li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #fa0606;
+}
+
+.order-history li:last-child {
+  border-bottom: none;
+}
+
+.order-history img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.order-history p {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.order-history button {
+  margin-left: auto;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+}
+
+.order-history .rate-button {
+  background-color: #4CAF50;
+}
+
+.order-history .rate-button:hover {
+  background-color: #3e8e41;
+}
+
+.order-history .cancel-button {
+  background-color: #f44336;
+}
+
+.order-history .cancel-button:hover {
+  background-color: #d32f2f;
+}
+
+/* Sales list styles */
+.sales-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sales-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #fa0606;
+}
+
+.sales-item:last-child {
+  border-bottom: none;
+}
+
+.sales-item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 5px;
+  object-fit: cover;
+}
+
+.sales-item-details {
+  flex: 1;
+}
+
+.sales-item-name {
+  font-size: 1.25rem;
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.sales-item-name:hover {
+  text-decoration: underline;
+}
+
+.sales-item p {
+  margin-bottom: 5px;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.sales-item .remove-item-button {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.sales-item .remove-item-button:hover {
+  background-color: #d32f2f;
+}
+
+.sold-mark {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+/* No items message styles */
+.no-items-message {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.no-items-message p {
+  font-size: 1.25rem;
+  color: #ccc;
+}
+
+.list-item-button,
+.shop-more-button {
+  display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.list-item-button:hover,
+.shop-more-button:hover {
+  background-color: #3e8e41;
+}
+
+/* Popup styles */
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background-color: #000;
+  color: rgb(255, 255, 255);
+  padding: 2%;
+  border-radius: 5px;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  border: 1px solid #db0000;
+}
+
+.popup-content h2 {
+  margin-bottom: 20px;
+}
+
+.popup-content textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #db0000;
+  color: #e5e5e5;
+}
+
+.popup-content button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.popup-content .submit-button {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.popup-content .submit-button:hover {
+  background-color: #3e8e41;
+}
+
+.popup-content .close-button {
+  background-color: #f44336;
+  color: white;
+  margin-left: 10px;
+}
+
+.popup-content .close-button:hover {
+  background-color: #d32f2f;
+}
+.bank-button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.bank-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+.withdraw-button {
+  background-color: #f44336;
+}
+
+.add-button {
+  background-color: #4CAF50;
+}
+.profile-info input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.save-profile-button, .cancel-edit-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+.cancel-edit-button {
+  background-color: #f44336;
+}
+
+.save-profile-button:hover {
+  background-color: #3e8e41;
+}
+
+.cancel-edit-button:hover {
+  background-color: #d32f2f;
+}
