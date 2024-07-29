@@ -10,6 +10,7 @@ from .serializers import MyTokenObtainPairSerializer
 
 
 class EmailCheckView(APIView):
+    permission_classes = [AllowAny]
     def post(self,request):
         email = request.data.get('email')
         if email:
@@ -20,15 +21,19 @@ class EmailCheckView(APIView):
         return Response({'error':"Email not provided"}, status = status.HTTP_400_BAD_REQUEST)
     
 class SignUpView(APIView):
+    permission_classes = [AllowAny]
     def get(self, request):
         return render(request, 'login.html')  # Render your login template
 
     def post(self, request):
         serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save()
-            return Response(status=status.HTTP_200_OK)
-        return Response({'error':"Something went Wrong"}, status = status.HTTP_400_BAD_REQUEST)
+            try:
+                user = serializer.save()
+                return Response(status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error':str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
     
     
     
@@ -109,3 +114,22 @@ class HomeView(APIView):
             'user' : user
         }
         return render(request, 'home.html', attr)
+    
+class ImageStoreView(APIView):
+
+    def post(self, request):
+        serializer = ImageStoreSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            try:
+                url = serializer.save()
+                return Response({'url':url},status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error':str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcyMjI0MzA4NSwiaWF0IjoxNzIyMTU2Njg1LCJqdGkiOiIyOTFhYzUyNTc3MGM0MmFhOGRkNmU5OTM5NDBjNDFmNCIsInVzZXJfaWQiOjF9.TS_MUEIqrDoRePzbbvNSKobIWRRULWPXws_LZ3pchrM",
+#     "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIyMTYwMjg1LCJpYXQiOjE3MjIxNTY2ODUsImp0aSI6ImE5MzY3MmFmYjdjZDQ4MjJhMTRhYjY2YzBjZTk4N2MwIiwidXNlcl9pZCI6MX0.7ZWcWTa8Kvo-UAgeWPR9vvsCngSL9gBgtz9rhak2mgI",
+#     "user": {
+#         "id": 1,
+#         "email": "vanshlilani2608@gmail.com"
+#     }
