@@ -46,7 +46,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=50, null=False, default = "", verbose_name="First Name")
     last_name = models.CharField(max_length=50, null=False, default = "", verbose_name="Last Name")
     photo_link = models.URLField(max_length=200, blank=True, null=True, verbose_name="Photo Link")
-    phone_number = models.CharField(max_length=15, blank=True, null=True, verbose_name="Phone Number")
+    phone_number = models.IntegerField(blank=True, null=True, verbose_name="Phone Number")
     age = models.SmallIntegerField(blank=True, null=True, verbose_name="Age")
     gender_choices = [
         ('male', 'Male'),

@@ -67,7 +67,7 @@ class Yacht(BaseProduct):
         (4, 'Fiberglass'),
         (5, 'Wood'),
         (6, 'PVC'),
-        (7, 'Steel'),
+        (7, 'Steel'),   
         (8, 'Other'),
     ]
 
@@ -75,7 +75,15 @@ class Yacht(BaseProduct):
         (1, 'Diesel'),
         (2, 'Electric'),
         (3, 'Petrol'),
-        
+    ]
+
+    NUMBER_OF_ENGINES = [
+        (0, '0'),
+        (1, '1'),
+        (2, '2'),
+        (3, '3'),
+        (4, '4'),
+        (5, '4+'),
     ]
 
 
@@ -85,13 +93,25 @@ class Yacht(BaseProduct):
     fuel_type = models.IntegerField(choices=FUEL_TYPE_CHOICES)
     length = models.SmallIntegerField(default=0)
     beam = models.SmallIntegerField(default=0)
-    number_of_engines = models.IntegerField(choices=[(i, str(i)) for i in range(0, 5)] + [(5, '4+')])
+    number_of_engines = models.IntegerField(choices= NUMBER_OF_ENGINES)
     delivery_date = models.DateField(auto_now_add=False)
-    quantity = models.SmallIntegerField(default=0)
+    quantity = models.SmallIntegerField(default=1)
     features = models.ManyToManyField('Feature', through='YachtFeature', related_name='yachts')
 
+    def get_yacht_type_display(self):
+        return dict(self.YACHT_TYPE_CHOICES).get(self.yacht_type, 'Unknown')
+        
+    def get_fuel_type_display(self):
+        return dict(self.FUEL_TYPE_CHOICES).get(self.fuel_type, 'Unknown')
+        
+    def get_hull_material_display(self):
+        return dict(self.HULL_MATERIAL_CHOICES).get(self.hull_material, 'Unknown')
+        
+    def get_number_of_engines_display(self):
+        return dict(self.NUMBER_OF_ENGINES).get(self.number_of_engines, 'Unknown')
+    
     def __str__(self):
-        return f"{self.user.username}'s {self.get_yacht_type_display()} Yacht"
+        return f"{self.user.profile.first_name}'s {self.get_yacht_type_display()} Yacht"
     
     def clean(self):
         super().clean()
@@ -136,6 +156,7 @@ class PentHouse(BaseProduct):
         (15, 'Other') 
     ]
 
+    
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='penthouses')
     house_address = models.CharField(null=False, default="")
     bhk = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
@@ -147,8 +168,17 @@ class PentHouse(BaseProduct):
     features = models.ManyToManyField('Feature', through='PenthouseFeature', related_name='penthouses')
 
     def __str__(self):
-        return f"{self.user.username}'s Penthouse "
+        return f"{self.user.profile.first_name}'s Penthouse "
 
+    def get_location_display(self):
+        return dict(self.LOCATION_CHOICES).get(self.location, 'Unknown')
+        
+    def get_facing_display(self):
+        return dict(self.FACING_CHOICES).get(self.facing, 'Unknown')
+
+    def get_furnishing_display(self):
+        return dict(self.FURNISHING_CHOICES).get(self.furnishing, 'Unknown')
+        
     def clean(self):
         super().clean()
         for feature in self.features.all():
@@ -175,12 +205,15 @@ class Aircraft(BaseProduct):
     plane_type = models.IntegerField(choices=PLANE_TYPE_CHOICES)
     passenger_capacity = models.SmallIntegerField(validators=[MinValueValidator(2), MaxValueValidator(150)])
     delivery_date = models.DateField(auto_now_add=False)
-    quantity = models.SmallIntegerField(default=0)
+    quantity = models.SmallIntegerField(default=1)
     features = models.ManyToManyField('Feature', through='AircraftFeature', related_name='aircrafts')
 
     def __str__(self):
-        return f"{self.user.username}'s {self.get_plane_type_display()} Aircraft"
+        return f"{self.user.profile.first_name}'s {self.get_plane_type_display()} Aircraft"
     
+    def get_plane_type_display(self):
+        return dict(self.PLANE_TYPE_CHOICES).get(self.plane_type, 'Unknown')
+
     def clean(self):
         super().clean()
         for feature in self.features.all():
@@ -232,19 +265,35 @@ class Automobile(BaseProduct):
     seating_capacity = models.SmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(30)], default=1) # compulsory field
     delivery_date = models.DateField(auto_now_add=False)
     fuel_type = models.IntegerField(choices=FUEL_TYPE_CHOICES)
-    quantity = models.SmallIntegerField(default=0)
+    quantity = models.SmallIntegerField(default=1)
     features = models.ManyToManyField('Feature', through='AutomobileFeature', related_name='automobiles')
 
     def save(self, *args, **kwargs):
         if self.automobile_type == 1:  # If Bike
+            print("Hi i am here in save method in models.py")
             self.body_type = None
             self.transmission = None
             if self.seating_capacity & self.seating_capacity>2:
-                return ValidationError("Bikes can only have a seating capacity of 2 or less.")
+                print("opps error on seating")
+                raise ValidationError("Bikes can only have a seating capacity of 2 or less.")
+        print("hi going to super save the  model")
         super().save(*args, **kwargs)
 
+    def get_automobile_type_display(self):
+        return dict(self.AUTOMOBILE_TYPE_CHOICES).get(self.automobile_type, 'Unknown')
+
+    def get_fuel_type_display(self):
+        return dict(self.FUEL_TYPE_CHOICES).get(self.fuel_type, 'Unknown')
+
+    def get_body_type_display(self):
+        return dict(self.BODY_TYPE_CHOICES).get(self.body_type, 'Unknown')
+
+    def get_transmission_display(self):
+        return dict(self.TRANSMISSION_CHOICES).get(self.transmission, 'Unknown')
+    
+        
     def __str__(self):
-        return f"{self.user.username}'s {self.get_automobile_type_display()}"
+        return f"{self.user.profile.first_name}'s {self.get_automobile_type_display()}"
 
     def clean(self):
         if self.automobile_type == 1:  # If Bike
@@ -376,5 +425,5 @@ class Rating(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Rating by {self.user.username} for Purchase {self.purchase.id}: {self.rating}"
+        return f"Rating by {self.user.profile.first_name} for Purchase {self.purchase.id}: {self.rating}"
     

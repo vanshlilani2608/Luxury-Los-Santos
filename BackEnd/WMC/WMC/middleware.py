@@ -43,7 +43,6 @@ class RefreshTokenMiddleware(MiddlewareMixin):
                     response = requests.post(refresh_url, data={'refresh': refresh_token})
                     if response.status_code == 200:
                         new_access_token = response.json().get('access')
-                        print(new_access_token)
                         if new_access_token:
                             request.new_access_token = new_access_token
                             request.META['HTTP_AUTHORIZATION'] = f'Bearer {new_access_token}'

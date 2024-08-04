@@ -1,6 +1,7 @@
 from urllib.parse import quote, unquote
 from rest_framework import serializers
 from .models import CustomUser, Profile
+from django.db import transaction
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -98,24 +99,40 @@ class ImageStoreSerializer(serializers.Serializer):
         return self.store(photo, user)
 
     def store(self, photo, user):
-        print("storing started")
-        file_name = f"{user.id}_{photo.name}"
-        bucket_name = "Profile Images"
+        with transaction.atomic():
+            file_name = f"{user.id}_{photo.name}"
+            bucket_name = "Profile Images"
 
-        existing_image_url = user.profile.photo_link
-        if existing_image_url:
-            print("removing images")
-            existing_file_name = unquote(existing_image_url.split('/')[-1])
-            print(existing_file_name)
-            client.storage.from_(bucket_name).remove([f"profile_images/{existing_file_name}"])
-            print(" images removed")
-        
-        response = client.storage.from_(bucket_name).upload(f"profile_images/{file_name}", photo.read())
-        encoded_file_name = quote(file_name)
+            existing_image_url = user.profile.photo_link
+            if existing_image_url:
+                existing_file_name = unquote(existing_image_url.split('/')[-1])
+                print(existing_file_name)
+                client.storage.from_(bucket_name).remove([f"profile_images/{existing_file_name}"])
+            
+            response = client.storage.from_(bucket_name).upload(f"profile_images/{file_name}", photo.read())
+            encoded_file_name = quote(file_name)
 
-        url = f"{SUPABASE_URL}/storage/v1/object/public/{quote(bucket_name)}/profile_images/{encoded_file_name}"
-        print(response, "photo stored")
-        user.profile.photo_link = url
-        user.profile.save()
-        print("photo saved")
-        return url
+            url = f"{SUPABASE_URL}/storage/v1/object/public/{quote(bucket_name)}/profile_images/{encoded_file_name}"
+            user.profile.photo_link = url
+            user.profile.save()
+            return url
+    
+class CustomUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'email']
+
+class ProfileSerialzer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['first_name', 'phone_number', 'photo_link']
+
+class ProfileInfoSerializer(ProfileSerialzer):
+    class Meta:
+        model = Profile
+        fields = '__all__' 
+
+class BankDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['bank_balance']
