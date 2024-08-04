@@ -1,0 +1,155 @@
+/* AddAutomobile.css */
+
+.add-item-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-item-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #f1c40f;
+}
+
+.add-item-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-item-form label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.add-item-form input[type="text"],
+.add-item-form input[type="number"],
+.add-item-form input[type="date"],
+.add-item-form input[type="file"],
+.add-item-form select,
+.add-item-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+}
+
+.add-item-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.add-item-form .range-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.add-item-form button {
+  padding: 10px;
+  background-color: #f1c40f;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* AddAutomobile.css */
+
+.add-item-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.add-item-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #f1c40f;
+}
+
+.add-item-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-item-form label {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.add-item-form input[type="text"],
+.add-item-form input[type="number"],
+.add-item-form input[type="date"],
+.add-item-form input[type="file"],
+.add-item-form select,
+.add-item-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #333;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+}
+
+.add-item-form textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.add-item-form .range-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.add-item-form button {
+  padding: 10px;
+  background-color: #f1c40f;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-item-form button:hover {
+  background-color: #e1b30e;
+}
+
+.add-item-form fieldset {
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.add-item-form fieldset legend {
+  padding: 0 10px;
+  font-weight: bold;
+  color: #f1c40f;
+}
+
+.add-item-form fieldset label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+
+.add-item-form fieldset input[type="checkbox"] {
+  margin-right: 10px;
+}
