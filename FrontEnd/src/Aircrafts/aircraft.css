@@ -1,0 +1,75 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.aircraft-container {
+  display: flex;
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #222;
+  padding: 20px;
+  border-right: 1px solid #444;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h3 {
+  margin-bottom: 10px;
+}
+
+.filter-section div {
+  margin-bottom: 5px;
+}
+
+.filter-section label {
+  margin-left: 5px;
+}
+
+.filter-section input[type="checkbox"]:disabled + label {
+  color: #888;
+}
+
+.filter-section input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.main-content {
+  width: 80%;
+  padding: 20px;
+}
+
+.aircraft-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.aircraft-card {
+  background-color: #333;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.aircraft-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.aircraft-card:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,116 @@
+/* General Styles */
+body {
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  font-family: 'Arial Black', sans-serif; /* Bold, sans-serif font */
+  margin: 0;
+  padding: 0;
+}
+
+/* Yacht Container */
+.yacht-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: row;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 300px;
+  padding: 20px;
+  background-color: #111; /* Darker black background */
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  color: #0f0; /* Neon green */
+}
+
+.sidebar label {
+  color: #fff; /* White text */
+}
+
+.sidebar input[type="checkbox"] {
+  accent-color: #0f0; /* Neon green checkbox */
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #222; /* Dark grey background */
+}
+
+/* Yacht Grid */
+.yacht-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+
+/* Yacht Card */
+.yacht-card {
+  border: 2px solid rgb(51, 255, 0); /* Neon green border */
+  border-radius: 10px;
+  overflow: hidden;
+  width: calc(33% - 20px);
+  box-sizing: border-box;
+  background-color: #000000; /* Darker grey background for cards */
+  box-shadow: 0 0 15px rgba(1, 240, 1, 0.5); /* Neon glow */
+  transition: transform 0.3s;
+  text-align: center;
+}
+
+.yacht-card:hover {
+  transform: scale(1.05); /* Zoom effect on hover */
+}
+
+.yacht-card img {
+  width: 200%;
+  height: 100%;
+  border-bottom: 2px solid #0f0; /* Neon green border below image */
+}
+
+.yacht-card h4 {
+  margin: 10px;
+  text-align: center;
+  color: #f00; /* Neon red for headings */
+}
+
+/* Button */
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Filter Section */
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section input[type="number"] {
+  background-color: #222; /* Dark background for input */
+  color: #fff; /* White text */
+  border: 2px solid #0f0; /* Neon green border */
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.filter-section h3 {
+  margin-bottom: 10px;
+  color: #0f0; /* Neon green */
+}
+
+.filter-section label {
+  margin-left: 5px;
+  color: #fff; /* White text */
+}
