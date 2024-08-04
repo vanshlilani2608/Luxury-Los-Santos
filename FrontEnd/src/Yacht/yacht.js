@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './yacht.css';
+import { FaSearch } from "react-icons/fa";
 
 const yachtData = [
   { id: 1, name: "Sail Yacht 1", imgSrc: "/images/bg.png", type: "Sail", hullMaterial: "Fiberglass", fuelType: "Diesel", length: 30, beam: 6, engines: 1, deliveryDate: "2023-08-01", features: ["Air Conditioning", "Generator"] },
@@ -22,28 +24,31 @@ const yachtData = [
   { id: 18, name: "Power Yacht 9", imgSrc: "poweryacht9.jpg", type: "Power", hullMaterial: "Aluminum", fuelType: "Diesel", length: 65, beam: 12, engines: 4, deliveryDate: "2024-12-01", features: ["Generator", "Air Conditioning"] },
   { id: 19, name: "Sail Yacht 10", imgSrc: "sailyacht10.jpg", type: "Sail", hullMaterial: "Composite", fuelType: "Electric", length: 40, beam: 8, engines: 1, deliveryDate: "2025-01-01", features: ["Water Maker", "Cinema Room"] },
   { id: 20, name: "Power Yacht 10", imgSrc: "poweryacht10.jpg", type: "Power", hullMaterial: "Steel", fuelType: "Petrol", length: 70, beam: 14, engines: 4, deliveryDate: "2025-02-01", features: ["Helipad", "Pool"] },
+  { id: 20, name: "Power Yacht 10", imgSrc: "poweryacht10.jpg", type: "Power", hullMaterial: "Steel", fuelType: "Petrol", length: 70, beam: 14, engines: 4, deliveryDate: "2025-02-01", features: ["Helipad", "Pool"] },
 ];
 
 const Yachts = () => {
   const [yachts, setYachts] = useState(yachtData);
   const [filters, setFilters] = useState({
-    type: [],
-    hullMaterial: [],
-    fuelType: [],
+    type: '',
+    hullMaterial: '',
+    fuelType: '',
     length: { min: null, max: null },
     beam: { min: null, max: null },
-    engines: [],
+    engines: '',
     deliveryDate: null,
-    features: []
+    features: [],
+    name: '',
+    priceRange: { min: null, max: null },
+    description: '',
+    sort: 'none',
   });
 
-  const handleFilterChange = (filterType, value) => (event) => {
-    const { id, checked } = event.target;
+  const handleRadioChange = (filterType) => (event) => {
+    const { value } = event.target;
     setFilters(prevFilters => ({
       ...prevFilters,
-      [filterType]: checked
-        ? [...prevFilters[filterType], value || id]
-        : prevFilters[filterType].filter(item => item !== (value || id))
+      [filterType]: value
     }));
   };
 
@@ -58,117 +63,146 @@ const Yachts = () => {
     }));
   };
 
-  const applyFilters = () => {
-    let filteredYachts = yachtData;
+  const handleInputChange = (filterType) => (event) => {
+    const { value } = event.target;
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [filterType]: value
+    }));
+  };
 
-    if (filters.type.length > 0) {
-      filteredYachts = filteredYachts.filter(yacht => filters.type.includes(yacht.type));
-    }
-    if (filters.hullMaterial.length > 0) {
-      filteredYachts = filteredYachts.filter(yacht => filters.hullMaterial.includes(yacht.hullMaterial));
-    }
-    if (filters.fuelType.length > 0) {
-      filteredYachts = filteredYachts.filter(yacht => filters.fuelType.includes(yacht.fuelType));
-    }
-    if (filters.length.min !== null) {
-      filteredYachts = filteredYachts.filter(yacht => yacht.length >= filters.length.min);
-    }
-    if (filters.length.max !== null) {
-      filteredYachts = filteredYachts.filter(yacht => yacht.length <= filters.length.max);
-    }
-    if (filters.beam.min !== null) {
-      filteredYachts = filteredYachts.filter(yacht => yacht.beam >= filters.beam.min);
-    }
-    if (filters.beam.max !== null) {
-      filteredYachts = filteredYachts.filter(yacht => yacht.beam <= filters.beam.max);
-    }
-    if (filters.engines.length > 0) {
-      filteredYachts = filteredYachts.filter(yacht => filters.engines.includes(yacht.engines));
-    }
-    if (filters.deliveryDate) {
-      filteredYachts = filteredYachts.filter(yacht => new Date(yacht.deliveryDate) <= new Date(filters.deliveryDate));
-    }
-    if (filters.features.length > 0) {
-      filteredYachts = filteredYachts.filter(yacht => filters.features.every(feature => yacht.features.includes(feature)));
-    }
+  const handleCheckboxChange = (event) => {
+    const { value, checked } = event.target;
+    setFilters(prevFilters => {
+      const features = checked
+        ? [...prevFilters.features, value]
+        : prevFilters.features.filter(feature => feature !== value);
+      return { ...prevFilters, features };
+    });
+  };
 
-    setYachts(filteredYachts);
+  const applyFilters = async () => {
+    const filterData = {
+      type: filters.type,
+      hullMaterial: filters.hullMaterial,
+      fuelType: filters.fuelType,
+      length: filters.length,
+      beam: filters.beam,
+      engines: filters.engines,
+      deliveryDate: filters.deliveryDate,
+      features: filters.features,
+      name: filters.name,
+      priceRange: filters.priceRange,
+      description: filters.description,
+      sort: filters.sort,
+    };
+
+    try {
+      const response = await axios.post('https://your-backend-endpoint.com/api/filter-yachts', filterData);
+      setYachts(response.data); // Assuming the backend returns the filtered yacht data
+    } catch (error) {
+      console.error('Error applying filters:', error);
+      // Handle the error appropriately
+    }
   };
 
   return (
     <div className="yacht-container">
-      <aside className="sidebar">
-        <div className="filter-section">
-          <h3>Yacht Type</h3>
-          <div><input type="checkbox" id="sail" onChange={handleFilterChange('type', 'Sail')} /><label htmlFor="sail">Sail</label></div>
-          <div><input type="checkbox" id="power" onChange={handleFilterChange('type', 'Power')} /><label htmlFor="power">Power</label></div>
+      <div className="search-sort-container">
+        <div className="search-input-wrapper">
+          <FaSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search by name..."
+            onChange={handleInputChange('name')}
+            className="search-input"
+          />
         </div>
-
-        <div className="filter-section">
-          <h3>Hull Material</h3>
-          {['aluminum', 'composite', 'fiberglass', 'pvc', 'steel', 'wood'].map(material => (
-            <div key={material}><input type="checkbox" id={material} onChange={handleFilterChange('hullMaterial')} /><label htmlFor={material}>{material.charAt(0).toUpperCase() + material.slice(1)}</label></div>
-          ))}
-        </div>
-
-        <div className="filter-section">
-          <h3>Fuel Type</h3>
-          {['diesel', 'electric', 'petrol'].map(fuel => (
-            <div key={fuel}><input type="checkbox" id={fuel} onChange={handleFilterChange('fuelType')} /><label htmlFor={fuel}>{fuel.charAt(0).toUpperCase() + fuel.slice(1)}</label></div>
-          ))}
-        </div>
-
-        <div className="filter-section">
-          <h3>Length (in m)</h3>
-          <label>Minimum:</label><input type="number" min="0" onChange={handleRangeChange('length', 'min')} />
-          <label>Maximum:</label><input type="number" min="0" onChange={handleRangeChange('length', 'max')} />
-        </div>
-
-        <div className="filter-section">
-          <h3>Beam (in m)</h3>
-          <label>Minimum:</label><input type="number" min="0" onChange={handleRangeChange('beam', 'min')} />
-          <label>Maximum:</label><input type="number" min="0" onChange={handleRangeChange('beam', 'max')} />
-        </div>
-
-        <div className="filter-section">
-          <h3>Number Of Engines</h3>
-          {['1', '2', '3', '4plus'].map(engine => (
-            <div key={engine}><input type="checkbox" id={engine} onChange={handleFilterChange('engines', engine)} /><label htmlFor={engine}>{engine}</label></div>
-          ))}
-        </div>
-
-        <div className="filter-section">
-          <h3>Delivery Date</h3>
-          <label>Latest By:</label><input type="date" onChange={handleFilterChange('deliveryDate')} />
-        </div>
-
-        <div className="filter-section">
-          <h3>Features</h3>
-          {['airconditioning', 'generator', 'helipad', 'jacuzzi', 'solar', 'watermaker', 'pool', 'cinema'].map(feature => (
-            <div key={feature}><input type="checkbox" id={feature} onChange={handleFilterChange('features', feature)} /><label htmlFor={feature}>{feature.charAt(0).toUpperCase() + feature.slice(1).replace(/([A-Z])/g, ' $1')}</label></div>
-          ))}
-        </div>
-        
+        <select onChange={handleInputChange('sort')}>
+          <option value="none">Sort By</option>
+          <option value="priceHighToLow">Price High to Low</option>
+          <option value="priceLowToHigh">Price Low to High</option>
+          <option value="whatsNew">What's New</option>
+          <option value="customerRating">Customer Rating</option>
+        </select>
         <button onClick={applyFilters}>Apply Filters</button>
-      </aside>
+      </div>
 
-      <main className="main-content">
-        <div className="yacht-grid">
-          {yachts.map(yacht => (
-            <div key={yacht.id} className="yacht-card">
-              <div className='product-image'>
-              <img src={yacht.imgSrc} alt={yacht.name} />
+      <div className="main-content">
+        <aside className="sidebar">
+          <div className="filter-section">
+            <h3>Yacht Type</h3>
+            <div><input type="radio" name="type" value="Sail" onChange={handleRadioChange('type')} /><label>Sail</label></div>
+            <div><input type="radio" name="type" value="Power" onChange={handleRadioChange('type')} /><label>Power</label></div>
+          </div>
+
+          <div className="filter-section">
+            <h3>Hull Material</h3>
+            {['Aluminum', 'Composite', 'Fiberglass', 'PVC', 'Steel', 'Wood'].map(material => (
+              <div key={material}><input type="radio" name="hullMaterial" value={material} onChange={handleRadioChange('hullMaterial')} /><label>{material}</label></div>
+            ))}
+          </div>
+
+          <div className="filter-section">
+            <h3>Fuel Type</h3>
+            {['Diesel', 'Electric', 'Petrol'].map(fuel => (
+              <div key={fuel}><input type="radio" name="fuelType" value={fuel} onChange={handleRadioChange('fuelType')} /><label>{fuel}</label></div>
+            ))}
+          </div>
+
+          <div className="filter-section">
+            <h3>Length (in m)</h3>
+            <label>Min:</label><input type="number" min="0" onChange={handleRangeChange('length', 'min')} />
+            <label>Max:</label><input type="number" min="0" onChange={handleRangeChange('length', 'max')} />
+          </div>
+
+          <div className="filter-section">
+            <h3>Beam (in m)</h3>
+            <label>Min:</label><input type="number" min="0" onChange={handleRangeChange('beam', 'min')} />
+            <label>Max:</label><input type="number" min="0" onChange={handleRangeChange('beam', 'max')} />
+          </div>
+
+          <div className="filter-section">
+            <h3>Number Of Engines</h3>
+            {['1', '2', '3', '4 +'].map(engine => (
+              <div key={engine}><input type="radio" name="engines" value={engine} onChange={handleRadioChange('engines')} /><label>{engine}</label></div>
+            ))}
+          </div>
+
+          <div className="filter-section">
+            <h3>Delivery Date</h3>
+            <label>Latest By:</label><input type="date" onChange={handleInputChange('deliveryDate')} />
+          </div>
+
+          <div className="filter-section">
+            <h3>Features</h3>
+            {['Spa and Wellness Center', 'Swimming Pool', 'Helipad', 'Gymnasium', 'Fishing Equipment', 'Cinema Room', 'Wine Cellar', 'Sun Lounger', 'Cinema Room', 'Water Toys', 'Beach Club', 'Scenic Sundeck', 'Gourmet Kitchen', 'Private Suite', 'Dining Area', 'Office Space', 'BBQ Grill', 'High-Speed Internet'].map(feature => (
+              <div key={feature}><input type="checkbox" value={feature} onChange={handleCheckboxChange} /><label>{feature}</label></div>
+            ))}
+          </div>
+
+          <div className="filter-section">
+            <h3>Price Range</h3>
+            <label>Min:</label><input type="number" min="0" onChange={handleRangeChange('priceRange', 'min')} />
+            <label>Max:</label><input type="number" min="0" onChange={handleRangeChange('priceRange', 'max')} />
+          </div>
+        </aside>
+        <main className="yacht-listing">
+          <div className="yacht-grid">
+            {yachts.map(yacht => (
+              <div key={yacht.id} className="yacht-card">
+                <img src={yacht.imgSrc} alt={yacht.name} />
+                <h2>{yacht.name}</h2>
+                <p>Price: ${yacht.price}</p>
+                <div className="button-container">
+                  <button className="btns-cart">Add to Cart</button>
+                  <button className="btns-buy">Buy Now</button>
+                </div>
               </div>
-              <h4>{yacht.name}</h4>
-              <p>Type: {yacht.type}</p>
-              <p>Length: {yacht.length} m</p>
-              <p>Beam: {yacht.beam} m</p>
-              <p>Engines: {yacht.engines}</p>
-              <p>Delivery Date: {yacht.deliveryDate}</p>
-            </div>
-          ))}
-        </div>
-      </main>
+            ))}
+          </div>
+        </main>
+      </div>
     </div>
   );
 };

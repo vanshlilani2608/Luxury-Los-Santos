@@ -12,6 +12,10 @@ import Penthouse from './Penthouse/penthouse';
 import Automobiles from './Automobiles/automobiles';
 import Aircraft from './Aircrafts/aircraft';
 import Yacht from './Yacht/yacht';
+import ListYacht from './List-item-yacht/listitem-yacht';
+import ListPenthouse from './List-item-pentouses/listitem-penthouses';
+import ListAircraft from './List-item-aircrafts/listitem-aircrafts';
+import ListAutomobiles from './List-item-automobiles/listitem-automobiles';
 import { Auth } from './Login/Auth'; 
 
 const App = () => {
@@ -30,6 +34,10 @@ const App = () => {
         <Route path="/yacht" element={<Yacht />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/" element={<Home />} />
+        <Route path="/listyacht" element={<ListYacht />} />
+        <Route path="/listpenthouse" element={<ListPenthouse />} />
+        <Route path="/listautomobiles" element={<ListAutomobiles />} />
+        <Route path="/listaircrafts" element={<ListAircraft />} />
       </Routes>
       {showHeaderFooter && <Footer />}
     </div>

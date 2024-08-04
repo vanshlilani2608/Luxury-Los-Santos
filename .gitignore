@@ -1,5 +1,6 @@
 # Ignore virtual environment directory
 myenv/
+FrontEnd/node_modules/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

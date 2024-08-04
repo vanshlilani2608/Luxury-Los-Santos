@@ -15,7 +15,7 @@ body {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh; /* Full viewport height */
+  height: 80vh; /* Full viewport height */
   overflow-x: hidden; /* Hide horizontal scroll */
   padding: 0;
   width: 100vw; /* Full viewport width */
@@ -31,12 +31,16 @@ body {
   display: inline-block;
   flex-shrink: 0;
   position: relative;
+  background-image: var(--image); /* Default image */
+  filter: brightness(70%); /* Make the card a bit dull in color */
 }
 
 .category-card:hover {
   flex: 2; /* Expanded width to cover more space */
   height: 100vh; /* Keep full viewport height */
   z-index: 1; /* Bring the hovered card to the front */
+  filter: brightness(100%); /* Remove dull effect on hover */
+  background-image: var(--hover-image); /* Change image on hover */
 }
 
 .category-card:not(:hover) {
@@ -54,7 +58,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0);
   opacity: 0;
   transition: opacity 0.5s ease; /* Smooth opacity transition */
 }
@@ -63,28 +67,59 @@ body {
   opacity: 1;
 }
 
+.category-card .heading-container {
+  background-color: rgba(0, 0, 0, 0.5); /* Transparent background */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.category-link {
+  text-decoration: none;
+  font-weight: 900;
+}
+
 .category-card h2 {
   margin: 0;
-  font-size: 24px;
-  color: white; /* Ensure text is visible */
+  font-size: 100px; /* Bigger font size */
+  color: white; /* Default text color */
   transition: transform 0.5s ease; /* Smooth text transition */
+  text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.16); /* Glossy effect */
 }
 
 .category-card button {
-  display: none;
+  margin-top: 20px;
   padding: 10px 20px;
-  margin-top: 10px;
   background-color: white;
   color: black;
   border: none;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth button transition */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth button transition */
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Initial glossy effect */
+  text-decoration: none;
 }
 
 .category-card button:hover {
   background-color: #ddd;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.5); /* Enhanced glossy effect on hover */
 }
 
-.category-card:hover button {
-  display: block;
+/* Different glossy text colors for each category card */
+.category-card:nth-child(1) h2 {
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 8px rgb(255, 0, 0); /* Glossy effect */
+}
+
+.category-card:nth-child(2) h2 {
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 8px rgb(0, 255, 0); /* Glossy effect */
+}
+
+.category-card:nth-child(3) h2 {
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 8px rgb(0, 0, 255); /* Glossy effect */
+}
+
+.category-card:nth-child(4) h2 {
+  color: rgb(255, 255, 255);
+  text-shadow: 2px 2px 8px rgb(255, 255, 0); /* Glossy effect */
 }

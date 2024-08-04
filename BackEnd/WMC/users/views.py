@@ -30,13 +30,17 @@ class SignUpView(APIView):
 class LogInView(APIView):
     permission_classes = [AllowAny] 
     def get(self, request):
+        print("Hi i'am in get ")
         return render(request, 'login.html')
                     
     def post(self, request):
         serializer = LogInSerializer(data=request.data)
+        print(request.data)
         if serializer.is_valid():
             user = serializer.validated_data['user']
+            print("hii")
             if user:
+                print(user.email)
                 refresh = RefreshToken.for_user(user)
                 response = Response({
                     'refresh': str(refresh),

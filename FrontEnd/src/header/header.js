@@ -10,8 +10,9 @@ const Header = () => {
   return (
     <header className="header">
       <div className="logo">
-        <Link to="/"><img src={Logo} alt="Company Logo" /></Link>
-        <img src={lls} alt="Company Name" />
+        {/* <Link to="/"><img src={Logo} alt="Company Logo" /></Link> */}
+        <Link to="/"><img src={lls} alt="Company Name" /></Link>
+        {/* <img src={lls} alt="Company Name" /> */}
       </div>
       <nav className="navigation">
         <Link to="/yacht">Yacht</Link>
