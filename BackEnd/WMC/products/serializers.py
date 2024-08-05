@@ -105,13 +105,12 @@ class YachtSerializer(serializers.ModelSerializer):
 class YachtSummarySerializer(YachtSerializer):
 
     def to_representation(self, instance):
-        ret = super(serializers.ModelSerializer, self).to_representation(instance)
+        ret = super().to_representation(instance)
         ret.pop('images', None)
         return ret
         
     class Meta(YachtSerializer.Meta):
-        # fields = ['id', 'title', 'price', 'main_image']
-        fields = YachtSerializer.Meta.fields
+        fields = ['id', 'title', 'price', 'main_image']
 
 class PentHouseSerializer(serializers.ModelSerializer):
     images = serializers.ListField(
@@ -199,6 +198,16 @@ class PentHouseSerializer(serializers.ModelSerializer):
         return data
 
 
+class PentHousesSummarySerializer(PentHouseSerializer):
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret.pop('images', None)
+        ret['location'] = instance.get_location_display()
+        return ret
+        
+    class Meta(PentHouseSerializer.Meta):
+        fields = ['id', 'title', 'price', 'main_image', 'location']
 
 class AircraftSerializer(serializers.ModelSerializer):
     images = serializers.ListField(
@@ -258,6 +267,17 @@ class AircraftSerializer(serializers.ModelSerializer):
         return data
 
         
+class AircraftsSummarySerializer(AircraftSerializer):
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        ret.pop('images', None)
+        return ret
+        
+    class Meta(AircraftSerializer.Meta):
+        fields = ['id', 'title', 'price', 'main_image']
+
+
 class AutomobileSerializer(serializers.ModelSerializer):
     images = serializers.ListField(
         child=serializers.ImageField(),
@@ -388,5 +408,5 @@ class AutomobileSerializer(serializers.ModelSerializer):
 class FeatureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Feature
-        fields = ['id', 'name', 'category']
+        fields = ['id', 'name']
 

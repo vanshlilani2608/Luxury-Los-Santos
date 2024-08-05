@@ -15,6 +15,7 @@ class SignUpView(APIView):
         return render(request, 'login.html')  # Render your login template
 
     def post(self, request):
+        print(request.data)
         serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
             try:
@@ -35,7 +36,6 @@ class LogInView(APIView):
                     
     def post(self, request):
         serializer = LogInSerializer(data=request.data)
-        print(request.data)
         if serializer.is_valid():
             user = serializer.validated_data['user']
             print("hii")

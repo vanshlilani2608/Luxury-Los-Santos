@@ -38,6 +38,8 @@ const App = () => {
         <Route path="/listpenthouse" element={<ListPenthouse />} />
         <Route path="/listautomobiles" element={<ListAutomobiles />} />
         <Route path="/listaircrafts" element={<ListAircraft />} />
+        <Route path="/detail/yacht/:yachtId/"  />
+        <Route path="/detail/penthouse/:penthouseId/"  />
       </Routes>
       {showHeaderFooter && <Footer />}
     </div>

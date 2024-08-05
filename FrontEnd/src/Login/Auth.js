@@ -27,6 +27,7 @@ export const Auth = () => {
             : { first_name: firstName, last_name: lastName, email, password, confirmPassword, age, gender, address };
 
         try {
+            console.log(data)
             const url = isLogin ? loginUrl : registerUrl;
             const response = await axios.post(url, data);
             if (response.status === 200) {
@@ -35,6 +36,7 @@ export const Auth = () => {
                     const { access, refresh, user } = response.data;
                     localStorage.setItem('accessToken', access);
                     localStorage.setItem('refreshToken', refresh);
+                    console.log(user)
                     localStorage.setItem('user', JSON.stringify(user));
                     navigate('/');
                 } 

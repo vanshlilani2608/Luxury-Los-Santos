@@ -27,30 +27,37 @@ class SignUpSerializer(serializers.Serializer):
         fields = ['email', 'password', 'first_name', 'last_name', 'phone_number', 'age', 'gender', 'address']
 
     def create(self, validated_data):
-        try:
-            user = CustomUser.objects.create_user(
-                email = validated_data['email'],
-                password = validated_data['password']
-            )   
-            
-            Profile.objects.create(
-                user=user,
-                first_name=validated_data['first_name'],
-                last_name=validated_data['last_name'],
-                phone_number=validated_data['phone_number'],
-                age=validated_data['age'],
-                gender=validated_data['gender'],
-                address=validated_data['address']
-            )
+        with transaction.atomic():
+            try:
+                user = CustomUser.objects.create_user(
+                    email = validated_data['email'],
+                    password = validated_data['password']
+                )   
+                
+                Profile.objects.create(
+                    user=user,
+                    first_name=validated_data['first_name'],
+                    last_name=validated_data['last_name'],
+                    phone_number=validated_data['phone_number'],
+                    age=validated_data['age'],
+                    gender=validated_data['gender'],
+                    address=validated_data['address']
+                )
 
-            return user
-        except Exception as e:
-            raise serializers.ValidationError({'detail':str(e)})
+                return user
+            except Exception as e:
+                raise serializers.ValidationError({'detail':str(e)})
+        print(validated_data)
+        return None
             
     def validate(self, attrs):
         if CustomUser.objects.filter(email=attrs['email']).exists():
             return serializers.ValidationError("Email already exists. Use different email")
-        return super().validate(attrs)
+        super().validate(attrs)
+        attrs['phone_number'] = attrs.get('phone_number', None)
+        return attrs
+
+        
     
 class LogInSerializer(serializers.Serializer):
     email = serializers.EmailField()
