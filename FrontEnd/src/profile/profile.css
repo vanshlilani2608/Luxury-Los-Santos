@@ -48,7 +48,10 @@ body {
   text-align: left;
   font-weight: bold;
 }
-
+.profile-header .loxout {
+  background-color: #882188;
+  width: 20%;
+}
 .profile-info p {
   margin: 5px 0;
   color: #ffffffc9;

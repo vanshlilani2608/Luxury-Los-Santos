@@ -1,91 +1,173 @@
 /* AddItemPage.css */
 
-.add-item-container {
-  max-width: 800px;
+/* Import Pricedown font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/pricedown');
+
+/* General styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #000;
+}
+
+.add-itemx-container {
+  max-width: 70%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #1a1a1a;
+  background: linear-gradient(145deg, #0a2c1c, #1c523c, #27654a);
   color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(0, 255, 179, 0.5);
+  border: 2px solid #00ff94;
 }
 
-.add-item-container h1 {
+.ppqx {
+  display: flex;
+  gap: 16px; /* Adjust spacing between items as needed */
+}
+
+.inputx-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Make input groups take equal space in the row */
+}
+
+
+.formx-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Adjust spacing as needed */
+}
+
+.formx-row label {
+  flex: 1; /* Adjust as needed to control width */
+  min-width: 200px; /* Minimum width for each label */
+}
+
+/* .inputx-group {
+  display: flex;
+  flex-direction: column;
+} */
+
+.add-itemx-container h1 {
   text-align: center;
   margin-bottom: 20px;
-  color: #f1c40f;
+  color: #00ff94;
+  font-family: 'Pricedown', sans-serif;
+  font-weight: 1000;
+  text-shadow: 2px 2px 4px #000, 0 0 10px #00ff94;
 }
 
-.add-item-form {
+.add-itemx-form {
   display: flex;
   flex-direction: column;
 }
 
-.add-item-form label {
+.add-itemx-form label {
   margin-bottom: 10px;
   font-weight: bold;
 }
 
-.add-item-form input[type="text"],
-.add-item-form input[type="number"],
-.add-item-form input[type="date"],
-.add-item-form input[type="file"],
-.add-item-form select,
-.add-item-form textarea {
+.add-itemx-form input[type="text"],
+.add-itemx-form input[type="number"],
+.add-itemx-form input[type="date"],
+.add-itemx-form input[type="file"],
+.add-itemx-form select,
+.add-itemx-form textarea {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 15px;
-  border: 1px solid #333;
+  border: 1px solid #00ff94;
   border-radius: 5px;
-  background-color: #333;
+  background: rgba(1, 123, 87, 0.9);
   color: #fff;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.3), 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s, border 0.3s, box-shadow 0.3s;
 }
 
-.add-item-form textarea {
+.add-itemx-form input[type="text"]:focus,
+.add-itemx-form input[type="number"]:focus,
+.add-itemx-form input[type="date"]:focus,
+.add-itemx-form input[type="file"]:focus,
+.add-itemx-form select:focus,
+.add-itemx-form textarea:focus {
+  background: rgba(1, 123, 87, 1);
+  border-color: #00ff94;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.5), 0 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+.add-itemx-form textarea {
   height: 100px;
   resize: vertical;
 }
 
-.add-item-form .range-inputs {
+.add-itemx-form .range-inputs {
   display: flex;
   gap: 10px;
 }
 
-.add-item-form button {
+.add-itemx-form button {
   padding: 10px;
-  background-color: #f1c40f;
+  background-color: #00ff94;
   color: #000;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 255, 179, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
-.add-item-form button:hover {
-  background-color: #e1b30e;
+.add-itemx-form button:hover {
+  background-color: #00d478;
+  box-shadow: 0 4px 15px rgba(0, 212, 120, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.4);
 }
 
-.add-item-form fieldset {
-  border: 1px solid #333;
+.image-uploadx-row {
+  display: flex;
+  gap: 16px; /* Adjust spacing as needed */
+}
+
+.image-uploadx-row label {
+  flex: 1;
+  min-width: 300px; /* Minimum width for each label, adjust as needed */
+}
+
+.add-itemx-form fieldset {
+  border: 1px solid #00ff94;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 15px;
+  background: rgba(1, 123, 87, 0.6);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.add-item-form fieldset legend {
+.add-itemx-form fieldset legend {
   padding: 0 10px;
   font-weight: bold;
-  color: #f1c40f;
+  color: #00ff94;
+  text-shadow: 1px 1px 2px #000, 0 0 5px #00ff94;
+  font-family: 'Pricedown', sans-serif;
 }
 
-.add-item-form fieldset label {
+.add-itemx-form fieldset label {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
   font-weight: normal;
 }
 
-.add-item-form fieldset input[type="checkbox"] {
+.add-itemx-form fieldset input[type="checkbox"] {
   margin-right: 10px;
+}
+
+.featurex-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px; /* Adjust spacing as needed */
+}
+
+.featurex-grid label {
+  display: flex;
+  align-items: center;
 }

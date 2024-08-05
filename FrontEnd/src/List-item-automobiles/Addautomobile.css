@@ -1,155 +1,164 @@
-/* AddAutomobile.css */
+/* Import Pricedown font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.cdnfonts.com/css/pricedown');
 
-.add-item-container {
-  max-width: 800px;
+/* General styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #000;
+}
+
+.add-itemp-container {
+  max-width: 70%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #1a1a1a;
+  background: linear-gradient(145deg, #2c0a0a, #3c1c1c, #652727);
   color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 0 10px rgba(255, 0, 0, 0.5);
+  border: 2px solid #ff0000;
 }
 
-.add-item-container h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #f1c40f;
+.ppqp {
+  display: flex;
+  gap: 16px; /* Adjust spacing between items as needed */
 }
 
-.add-item-form {
+.formp-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px; /* Adjust spacing as needed */
+}
+
+.formp-row label {
+  flex: 1; /* Adjust as needed to control width */
+  min-width: 200px; /* Minimum width for each label */
+}
+
+.inputp-group {
   display: flex;
   flex-direction: column;
 }
 
-.add-item-form label {
-  margin-bottom: 10px;
-  font-weight: bold;
-}
-
-.add-item-form input[type="text"],
-.add-item-form input[type="number"],
-.add-item-form input[type="date"],
-.add-item-form input[type="file"],
-.add-item-form select,
-.add-item-form textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  border: 1px solid #333;
-  border-radius: 5px;
-  background-color: #333;
-  color: #fff;
-}
-
-.add-item-form textarea {
-  height: 100px;
-  resize: vertical;
-}
-
-.add-item-form .range-inputs {
-  display: flex;
-  gap: 10px;
-}
-
-.add-item-form button {
-  padding: 10px;
-  background-color: #f1c40f;
-  color: #000;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-/* AddAutomobile.css */
-
-.add-item-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #1a1a1a;
-  color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.add-item-container h1 {
+.add-itemp-container h1 {
   text-align: center;
   margin-bottom: 20px;
-  color: #f1c40f;
+  color: #ff0000;
+  font-family: 'Pricedown', sans-serif;
+  font-weight: 1000;
+  text-shadow: 2px 2px 4px #000, 0 0 10px #ff0000;
 }
 
-.add-item-form {
+.add-itemp-form {
   display: flex;
   flex-direction: column;
 }
 
-.add-item-form label {
+.add-itemp-form label {
   margin-bottom: 10px;
   font-weight: bold;
 }
 
-.add-item-form input[type="text"],
-.add-item-form input[type="number"],
-.add-item-form input[type="date"],
-.add-item-form input[type="file"],
-.add-item-form select,
-.add-item-form textarea {
+.add-itemp-form input[type="text"],
+.add-itemp-form input[type="number"],
+.add-itemp-form input[type="date"],
+.add-itemp-form input[type="file"],
+.add-itemp-form select,
+.add-itemp-form textarea {
   width: 100%;
   padding: 10px;
   margin-top: 5px;
   margin-bottom: 15px;
-  border: 1px solid #333;
+  border: 1px solid #ff0000;
   border-radius: 5px;
-  background-color: #333;
+  background: rgba(50, 0, 0, 0.9);
   color: #fff;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.3), 0 1px 3px rgba(0, 0, 0, 0.5);
+  transition: background 0.3s, border 0.3s, box-shadow 0.3s;
 }
 
-.add-item-form textarea {
+.add-itemp-form input[type="text"]:focus,
+.add-itemp-form input[type="number"]:focus,
+.add-itemp-form input[type="date"]:focus,
+.add-itemp-form input[type="file"]:focus,
+.add-itemp-form select:focus,
+.add-itemp-form textarea:focus {
+  background: rgba(50, 0, 0, 1);
+  border-color: #ff0000;
+  box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.5), 0 1px 5px rgba(0, 0, 0, 0.7);
+}
+
+.add-itemp-form textarea {
   height: 100px;
   resize: vertical;
 }
 
-.add-item-form .range-inputs {
+.add-itemp-form .range-inputs {
   display: flex;
   gap: 10px;
 }
 
-.add-item-form button {
+.add-itemp-form button {
   padding: 10px;
-  background-color: #f1c40f;
-  color: #000;
+  background-color: #ff3333;
+  color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(255, 0, 0, 0.6), inset 0 1px 2px rgba(255, 255, 255, 0.3);
 }
 
-.add-item-form button:hover {
-  background-color: #e1b30e;
+.add-itemp-form button:hover {
+  background-color: #cc0000;
+  box-shadow: 0 4px 15px rgba(200, 0, 0, 0.8), inset 0 1px 2px rgba(255, 255, 255, 0.4);
 }
 
-.add-item-form fieldset {
-  border: 1px solid #333;
+.image-uploadp-row {
+  display: flex;
+  gap: 16px; /* Adjust spacing as needed */
+}
+
+.image-uploadp-row label {
+  flex: 1;
+  min-width: 300px; /* Minimum width for each label, adjust as needed */
+}
+
+.add-itemp-form fieldset {
+  border: 1px solid #ff0000;
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 15px;
+  background: rgba(50, 0, 0, 0.6);
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.add-item-form fieldset legend {
+.add-itemp-form fieldset legend {
   padding: 0 10px;
   font-weight: bold;
-  color: #f1c40f;
+  color: #ff0000;
+  text-shadow: 1px 1px 2px #000, 0 0 5px #ff0000;
+  font-family: 'Pricedown', sans-serif;
 }
 
-.add-item-form fieldset label {
+.add-itemp-form fieldset label {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
   font-weight: normal;
 }
 
-.add-item-form fieldset input[type="checkbox"] {
+.add-itemp-form fieldset input[type="checkbox"] {
   margin-right: 10px;
+}
+
+.featurep-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px; /* Adjust spacing as needed */
+}
+
+.featurep-grid label {
+  display: flex;
+  align-items: center;
 }

@@ -46,6 +46,15 @@ const AddItemPage = () => {
     setProductImages(files);
   };
 
+  const handlemainImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 1) {
+      alert('You can only select 1 main image.');
+      return;
+    }
+    setProductImages(files);
+  };
+
   const handleSubmit = () => {
     // Handle form submission logic
     navigate('/sales'); // Redirect to sales page
@@ -59,9 +68,9 @@ const AddItemPage = () => {
   };
 
   return (
-    <div className="add-item-container">
+    <div className="add-itemx-container">
       <h1>Add New Penthouse</h1>
-      <form className="add-item-form">
+      <form className="add-itemx-form">
         <label>
           Product Name:
           <input
@@ -71,122 +80,128 @@ const AddItemPage = () => {
             required
           />
         </label>
-
-        <label>
-          Product Images:
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={handleImageChange}
-            required
-          />
-        </label>
-
-        <label>
-          Product Price:
-          <input
-            type="number"
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
-            min="0"
-            required
-          />
-        </label>
-
-        <label>
-          Product Description:
-          <textarea
-            value={productDescription}
-            onChange={(e) => setProductDescription(e.target.value)}
-            required
-          />
-        </label>
-
-        <label>
-          Quantity to be Sold:
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            min="1"
-            required
-          />
-        </label>
-
-        <label>
-          BHK:
-          <select value={bhk} onChange={(e) => setBhk(e.target.value)}>
-            <option value="">Select BHK</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="5+">5+</option>
-          </select>
-        </label>
-
-        <label>
-          Covered Area (Sqft):
-          <div className="range-inputs">
+        <div className="image-uploadx-row">
+          <label>
+            Product Images (Only add 1 Main image in this as this will be displayed everywhere):
             <input
-              type="number"
-              placeholder="Min"
-              value={coveredAreaMin}
-              onChange={(e) => setCoveredAreaMin(e.target.value)}
-              min="0"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handlemainImageChange}
+              required
             />
+          </label>
+
+          <label>
+            Product Images (Only add 7 Images in this as they are the different views of the product):
             <input
-              type="number"
-              placeholder="Max"
-              value={coveredAreaMax}
-              onChange={(e) => setCoveredAreaMax(e.target.value)}
-              min="0"
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleImageChange}
+              required
             />
+          </label>
+        </div>
+
+        <div className='ppqx'>
+          <div className='inputx-group'>
+            <label>
+              Product Price:
+              <input
+                type="number"
+                value={productPrice}
+                onChange={(e) => setProductPrice(e.target.value)}
+                min="0"
+                required
+              />
+            </label>
           </div>
-        </label>
+          <div className='inputx-group'>
+            <label>
+              Quantity to be Sold:
+              <input
+                type="number"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+                min="1"
+                required
+              />
+            </label>
+          </div>
+        </div>
 
-        <label>
-          Furnishing:
-          <select
-            value={furnishing}
-            onChange={(e) => setFurnishing(e.target.value)}
-          >
-            <option value="">Select Furnishing</option>
-            <option value="semi-furnished">Semi-furnished</option>
-            <option value="unfurnished">Unfurnished</option>
-            <option value="furnished">Furnished</option>
-          </select>
-        </label>
+        <div className="formx-row">
+          <label>
+            BHK:
+            <select value={bhk} onChange={(e) => setBhk(e.target.value)}>
+              <option value="">Select BHK</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="5+">5+</option>
+            </select>
+          </label>
 
-        <label>
-          Bathrooms:
-          <select value={bathrooms} onChange={(e) => setBathrooms(e.target.value)}>
-            <option value="">Select Bathrooms</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="5+">5+</option>
-          </select>
-        </label>
+          <label>
+            Covered Area (Sqft):
+            <div className="rangex-inputs">
+              <input
+                type="number"
+                value={coveredAreaMin}
+                onChange={(e) => setCoveredAreaMin(e.target.value)}
+                min="0"
+                required
+              />
+              
+            </div>
+          </label>
 
-        <label>
-          Facing:
-          <select value={facing} onChange={(e) => setFacing(e.target.value)}>
-            <option value="">Select Facing</option>
-            <option value="East">East</option>
-            <option value="North">North</option>
-            <option value="North-East">North-East</option>
-            <option value="North-West">North-West</option>
-            <option value="South">South</option>
-            <option value="South-East">South-East</option>
-            <option value="South-West">South-West</option>
-            <option value="West">West</option>
-          </select>
-        </label>
+          <label>
+            Furnishing:
+            <select
+              value={furnishing}
+              onChange={(e) => setFurnishing(e.target.value)}
+            >
+              <option value="">Select Furnishing</option>
+              <option value="semi-furnished">Semi-furnished</option>
+              <option value="unfurnished">Unfurnished</option>
+              <option value="furnished">Furnished</option>
+            </select>
+          </label>
+        </div>
+
+        <div className="formx-row">
+          <label>
+            Bathrooms:
+            <select value={bathrooms} onChange={(e) => setBathrooms(e.target.value)}>
+              <option value="">Select Bathrooms</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="5+">5+</option>
+            </select>
+          </label>
+
+          <label>
+            Facing:
+            <select value={facing} onChange={(e) => setFacing(e.target.value)}>
+              <option value="">Select Facing</option>
+              <option value="East">East</option>
+              <option value="North">North</option>
+              <option value="North-East">North-East</option>
+              <option value="North-West">North-West</option>
+              <option value="South">South</option>
+              <option value="South-East">South-East</option>
+              <option value="South-West">South-West</option>
+              <option value="West">West</option>
+            </select>
+          </label>
+        </div>
 
         <label>
           Location:
@@ -211,16 +226,18 @@ const AddItemPage = () => {
 
         <fieldset>
           <legend>Features:</legend>
-          {Object.keys(features).map((feature) => (
-            <label key={feature}>
-              <input
-                type="checkbox"
-                checked={features[feature]}
-                onChange={() => handleFeatureChange(feature)}
-              />
-              {feature.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-            </label>
-          ))}
+          <div className="featurex-grid">
+            {Object.keys(features).map((feature) => (
+              <label key={feature}>
+                <input
+                  type="checkbox"
+                  checked={features[feature]}
+                  onChange={() => handleFeatureChange(feature)}
+                />
+                {feature.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+              </label>
+            ))}
+          </div>
         </fieldset>
 
         <button type="button" onClick={handleSubmit}>

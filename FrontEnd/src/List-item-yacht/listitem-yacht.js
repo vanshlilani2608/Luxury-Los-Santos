@@ -50,6 +50,14 @@ const AddItemPage = () => {
     }
     setProductImages(files);
   };
+  const handlemainImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 1) {
+      alert('You can only 1 image.');
+      return;
+    }
+    setProductImages(files);
+  };
 
   const handleSubmit = () => {
     // Handle form submission logic
@@ -64,9 +72,9 @@ const AddItemPage = () => {
   };
 
   return (
-    <div className="add-item-container">
+    <div className="add-items-container">
       <h1>Add New Yacht</h1>
-      <form className="add-item-form">
+      <form className="add-items-form">
         <label>
           Product Name:
           <input
@@ -76,9 +84,19 @@ const AddItemPage = () => {
             required
           />
         </label>
+        {/* <label>
+          Product Images(Only add Main image in this as this will be displayed everywhere):
+          <input
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handlemainImageChange}
+            required
+          />
+        </label>
 
         <label>
-          Product Images:
+          Product Images(Only add 7 Images in this box):
           <input
             type="file"
             multiple
@@ -86,146 +104,125 @@ const AddItemPage = () => {
             onChange={handleImageChange}
             required
           />
-        </label>
+        </label> */}
+        <div className="image-upload-row">
+  <label>
+    Product Images (Only add 1 Main image in this as this will be displayed everywhere):
+    <input
+      type="file"
+      multiple
+      accept="image/*"
+      onChange={handlemainImageChange}
+      required
+    />
+  </label>
 
-        <label>
-          Product Price:
-          <input
-            type="number"
-            value={productPrice}
-            onChange={(e) => setProductPrice(e.target.value)}
-            min="0"
-            required
-          />
-        </label>
+  <label>
+    Product Images (Only add 7 Images in this as they are the different views of the product):
+    <input
+      type="file"
+      multiple
+      accept="image/*"
+      onChange={handleImageChange}
+      required
+    />
+  </label>
+</div>
 
-        <label>
-          Maximum Days to Deliver:
-          <input
-            type="number"
-            value={maxDaysToDeliver}
-            onChange={(e) => setMaxDaysToDeliver(e.target.value)}
-            min="1"
-            required
-          />
-        </label>
+        <div className='ppq'>
+  <div className='input-group'>
+    <label>
+      Product Price:
+      <input
+        type="number"
+        value={productPrice}
+        onChange={(e) => setProductPrice(e.target.value)}
+        min="0"
+        required
+      />
+    </label>
+  </div>
+  <div className='input-group'>
+    <label>
+      Quantity to be Sold:
+      <input
+        type="number"
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
+        min="1"
+        required
+      />
+    </label>
+  </div>
+</div>
 
-        <label>
-          Product Description:
-          <textarea
-            value={productDescription}
-            onChange={(e) => setProductDescription(e.target.value)}
-            required
-          />
-        </label>
+        <div className="form-row">
+  <label>
+    Yacht Type:
+    <select value={yachtType} onChange={(e) => setYachtType(e.target.value)}>
+      <option value="">Select Yacht Type</option>
+      <option value="sail">Sail</option>
+      <option value="power">Power</option>
+    </select>
+  </label>
 
-        <label>
-          Quantity to be Sold:
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            min="1"
-            required
-          />
-        </label>
+  <label>
+    Hull Material:
+    <select value={hullMaterial} onChange={(e) => setHullMaterial(e.target.value)}>
+      <option value="">Select Hull Material</option>
+      <option value="aluminum">Aluminum</option>
+      <option value="composite">Composite</option>
+      <option value="ferro-cement">Ferro-Cement</option>
+      <option value="fiberglass">Fiberglass</option>
+      <option value="other">Other</option>
+      <option value="pvc">PVC</option>
+      <option value="steel">Steel</option>
+      <option value="wood">Wood</option>
+    </select>
+  </label>
+  
 
-        <label>
-          Yacht Type:
-          <select
-            value={yachtType}
-            onChange={(e) => setYachtType(e.target.value)}
-          >
-            <option value="">Select Yacht Type</option>
-            <option value="sail">Sail</option>
-            <option value="power">Power</option>
-          </select>
-        </label>
+  <label>
+    Fuel Type:
+    <select value={fuelType} onChange={(e) => setFuelType(e.target.value)}>
+      <option value="">Select Fuel Type</option>
+      <option value="diesel">Diesel</option>
+      <option value="electric">Electric</option>
+      <option value="petrol">Petrol</option>
+    </select>
+  </label>
+  </div>
 
-        <label>
-          Hull Material:
-          <select
-            value={hullMaterial}
-            onChange={(e) => setHullMaterial(e.target.value)}
-          >
-            <option value="">Select Hull Material</option>
-            <option value="aluminum">Aluminum</option>
-            <option value="composite">Composite</option>
-            <option value="ferro-cement">Ferro-Cement</option>
-            <option value="fiberglass">Fiberglass</option>
-            <option value="other">Other</option>
-            <option value="pvc">PVC</option>
-            <option value="steel">Steel</option>
-            <option value="wood">Wood</option>
-          </select>
-        </label>
+        
+        
+        <div className="form-row">
+  <label>
+    Beam (in m):
+    <input
+      type="number"
+      placeholder="Beam"
+      value={beamMin}
+      onChange={(e) => setBeamMin(e.target.value)}
+      min="0"
+      required
+    />
+  </label>
 
-        <label>
-          Fuel Type:
-          <select
-            value={fuelType}
-            onChange={(e) => setFuelType(e.target.value)}
-          >
-            <option value="">Select Fuel Type</option>
-            <option value="diesel">Diesel</option>
-            <option value="electric">Electric</option>
-            <option value="petrol">Petrol</option>
-          </select>
-        </label>
+  <label>
+    Number Of Engines:
+    <select
+      value={numberOfEngines}
+      onChange={(e) => setNumberOfEngines(e.target.value)}
+    >
+      <option value="">Select Number of Engines</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4+">4+</option>
+    </select>
+  </label>
+</div>
 
-        <label>
-          Length (in m):
-          <div className="range-inputs">
-            <input
-              type="number"
-              placeholder="Min"
-              value={lengthMin}
-              onChange={(e) => setLengthMin(e.target.value)}
-              min="0"
-            />
-            <input
-              type="number"
-              placeholder="Max"
-              value={lengthMax}
-              onChange={(e) => setLengthMax(e.target.value)}
-              min="0"
-            />
-          </div>
-        </label>
-
-        <label>
-          Beam (in m):
-          <div className="range-inputs">
-            <input
-              type="number"
-              placeholder="Min"
-              value={beamMin}
-              onChange={(e) => setBeamMin(e.target.value)}
-              min="0"
-            />
-            <input
-              type="number"
-              placeholder="Max"
-              value={beamMax}
-              onChange={(e) => setBeamMax(e.target.value)}
-              min="0"
-            />
-          </div>
-        </label>
-
-        <label>
-          Number Of Engines:
-          <select
-            value={numberOfEngines}
-            onChange={(e) => setNumberOfEngines(e.target.value)}
-          >
-            <option value="">Select Number of Engines</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4+">4+</option>
-          </select>
-        </label>
 
         <label>
           Delivery Date:
@@ -237,18 +234,20 @@ const AddItemPage = () => {
         </label>
 
         <fieldset>
-          <legend>Features:</legend>
-          {Object.keys(features).map((feature) => (
-            <label key={feature}>
-              <input
-                type="checkbox"
-                checked={features[feature]}
-                onChange={() => handleFeatureChange(feature)}
-              />
-              {feature.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-            </label>
-          ))}
-        </fieldset>
+  <legend>Features:</legend>
+  <div className="features-grid">
+    {Object.keys(features).map((feature) => (
+      <label key={feature}>
+        <input
+          type="checkbox"
+          checked={features[feature]}
+          onChange={() => handleFeatureChange(feature)}
+        />
+        {feature.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+      </label>
+    ))}
+  </div>
+</fieldset>
 
         <button type="button" onClick={handleSubmit}>
           Submit

@@ -3,11 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import './Addaircraft.css'; // Import the CSS file
 
 const AddAircraftPage = () => {
-  const [aircraftName, setAircraftName] = useState('');
-  const [aircraftImages, setAircraftImages] = useState([]);
-  const [aircraftPrice, setAircraftPrice] = useState('');
-  const [deliveryDate, setDeliveryDate] = useState('');
+  const [productName, setProductName] = useState('');
+  const [productImages, setProductImages] = useState([]);
+  const [productPrice, setProductPrice] = useState('');
+  const [maxDaysToDeliver, setMaxDaysToDeliver] = useState('');
+  const [productDescription, setProductDescription] = useState('');
   const [quantity, setQuantity] = useState('');
+  const [deliveryDate, setDeliveryDate] = useState(''); 
+  // Aircraft filters
   const [planeType, setPlaneType] = useState('');
   const [passengerMin, setPassengerMin] = useState('');
   const [passengerMax, setPassengerMax] = useState('');
@@ -34,7 +37,16 @@ const AddAircraftPage = () => {
       alert('You can only select up to 8 images.');
       return;
     }
-    setAircraftImages(files);
+    setProductImages(files);
+  };
+
+  const handleMainImageChange = (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length > 1) {
+      alert('You can only select 1 main image.');
+      return;
+    }
+    setProductImages(files);
   };
 
   const handleSubmit = () => {
@@ -50,124 +62,134 @@ const AddAircraftPage = () => {
   };
 
   return (
-    <div className="add-item-container">
+    <div className="add-itemh-container">
       <h1>Add New Aircraft</h1>
-      <form className="add-item-form">
+      <form className="add-itemh-form">
         <label>
-          Aircraft Name:
+          Product Name:
           <input
             type="text"
-            value={aircraftName}
-            onChange={(e) => setAircraftName(e.target.value)}
+            value={productName}
+            onChange={(e) => setProductName(e.target.value)}
             required
           />
         </label>
-
-        <label>
-          Aircraft Images:
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={handleImageChange}
-            required
-          />
-        </label>
-
-        <label>
-          Aircraft Price:
-          <input
-            type="number"
-            value={aircraftPrice}
-            onChange={(e) => setAircraftPrice(e.target.value)}
-            min="0"
-            required
-          />
-        </label>
-
-        <label>
-          Delivery Date:
-          <input
-            type="date"
-            value={deliveryDate}
-            onChange={(e) => setDeliveryDate(e.target.value)}
-          />
-        </label>
-
-        <label>
-          Quantity to be Sold:
-          <input
-            type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-            min="1"
-            required
-          />
-        </label>
-
-        <label>
-          Plane Type:
-          <select
-            value={planeType}
-            onChange={(e) => setPlaneType(e.target.value)}
-          >
-            <option value="">Select Plane Type</option>
-            <option value="heavyJet">Heavy Jet</option>
-            <option value="lightJet">Light Jet</option>
-            <option value="midsizeJet">Midsize Jet</option>
-            <option value="largeCabin">Large Cabin</option>
-            <option value="pistonSingle">Piston Single</option>
-            <option value="pistonTwin">Piston Twin</option>
-            <option value="superHeavyJet">Super Heavy Jet</option>
-            <option value="superLightJet">Super Light Jet</option>
-            <option value="superMidsizeJet">Super Midsize Jet</option>
-            <option value="turboProp">Turbo Prop</option>
-            <option value="helicopter">Helicopter</option>
-            <option value="passenger">Passenger (2 - 150)</option>
-          </select>
-        </label>
-
-        {planeType === 'passenger' && (
-          <>
+        <div className="image-uploadh-row">
+          <label>
+            Product Images (Only add 1 Main image in this as this will be displayed everywhere):
+            <input
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleMainImageChange}
+              required
+            />
+          </label>
+          <label>
+            Product Images (Only add 7 Images in this as they are the different views of the product):
+            <input
+              type="file"
+              multiple
+              accept="image/*"
+              onChange={handleImageChange}
+              required
+            />
+          </label>
+        </div>
+        <div className='ppqh'>
+          <div className='inputh-group'>
             <label>
-              Passenger Minimum:
+              Product Price:
               <input
                 type="number"
-                value={passengerMin}
-                onChange={(e) => setPassengerMin(e.target.value)}
-                min="2"
+                value={productPrice}
+                onChange={(e) => setProductPrice(e.target.value)}
+                min="0"
                 required
               />
             </label>
-
+          </div>
+          <div className='inputh-group'>
             <label>
-              Passenger Maximum:
+              Quantity to be Sold:
               <input
                 type="number"
-                value={passengerMax}
-                onChange={(e) => setPassengerMax(e.target.value)}
-                min="2"
-                max="150"
+                value={quantity}
+                onChange={(e) => setQuantity(e.target.value)}
+                min="1"
                 required
               />
             </label>
-          </>
-        )}
-
+          </div>
+        </div>
+        <div className="formh-row">
+          <label>
+            Plane Type:
+            <select value={planeType} onChange={(e) => setPlaneType(e.target.value)}>
+              <option value="">Select Plane Type</option>
+              <option value="heavyJet">Heavy Jet</option>
+              <option value="lightJet">Light Jet</option>
+              <option value="midsizeJet">Midsize Jet</option>
+              <option value="largeCabin">Large Cabin</option>
+              <option value="pistonSingle">Piston Single</option>
+              <option value="pistonTwin">Piston Twin</option>
+              <option value="superHeavyJet">Super Heavy Jet</option>
+              <option value="superLightJet">Super Light Jet</option>
+              <option value="superMidsizeJet">Super Midsize Jet</option>
+              <option value="turboProp">Turbo Prop</option>
+              <option value="helicopter">Helicopter</option>
+              <option value="passenger">Passenger (2 - 150)</option>
+            </select>
+          </label>
+          {planeType === 'passenger' && (
+            <>
+              <label>
+                Passenger Minimum:
+                <input
+                  type="number"
+                  value={passengerMin}
+                  onChange={(e) => setPassengerMin(e.target.value)}
+                  min="2"
+                  required
+                />
+              </label>
+              <label>
+                Passenger Maximum:
+                <input
+                  type="number"
+                  value={passengerMax}
+                  onChange={(e) => setPassengerMax(e.target.value)}
+                  min="2"
+                  max="150"
+                  required
+                />
+              </label>
+            </>
+          )}
+        </div>
+        <label>
+        Delivery Date:
+        <input
+          type="date"
+          value={deliveryDate}
+          onChange={(e) => setDeliveryDate(e.target.value)}
+        />
+      </label>
         <fieldset>
           <legend>Features:</legend>
-          {Object.keys(features).map((feature) => (
-            <label key={feature}>
-              <input
-                type="checkbox"
-                checked={features[feature]}
-                onChange={() => handleFeatureChange(feature)}
-              />
-              {feature.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
-            </label>
-          ))}
+          <div className="featureh-grid">
+            {Object.keys(features).map((feature) => (
+              <label key={feature}>
+                <input
+                  type="checkbox"
+                  checked={features[feature]}
+                  onChange={() => handleFeatureChange(feature)}
+                />
+                {feature.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
+              </label>
+            ))}
+          </div>
         </fieldset>
-
         <button type="button" onClick={handleSubmit}>
           Submit
         </button>

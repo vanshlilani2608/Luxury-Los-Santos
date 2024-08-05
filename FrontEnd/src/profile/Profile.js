@@ -153,6 +153,25 @@ const Profile = () => {
   const handleListItemClick = () => {
     setShowCategoryPopup(true);
   };
+  const handleLogout = () => {
+    // Check and remove accessToken
+    if (localStorage.getItem('accessToken')) {
+        localStorage.removeItem('accessToken');
+    }
+
+    // Check and remove refreshToken
+    if (localStorage.getItem('refreshToken')) {
+        localStorage.removeItem('refreshToken');
+    }
+
+    // Check and remove user object
+    if (localStorage.getItem('user')) {
+        localStorage.removeItem('user');
+    }
+
+    // Optionally, you can navigate the user to the login page or home page after logout
+    navigate('/');  // Adjust the path as needed
+};
   
   const handleCategorySelect = (category) => {
     setShowCategoryPopup(false);
@@ -170,7 +189,9 @@ const Profile = () => {
           <h1>{user.firstName} {user.lastName}</h1>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Phone:</strong> {user.phone}</p>
+          
         </div>
+        <button className='loxout'onClick={handleLogout}>Logout</button>
       </div>
 
       <div className="profile-details">
